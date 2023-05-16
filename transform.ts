@@ -253,6 +253,12 @@ function addFunctionTSTypes(
       // that ourselves.
       j.identifier(`: ${typeName}`)
     )
+
+    // set JSX.Element as the return type if it's not already set
+    const returnType = path.get("returnType")
+    if (!returnType.value) {
+      returnType.replace(j.tsTypeReference(j.identifier(": JSX.Element")))
+    }
   })
 }
 
